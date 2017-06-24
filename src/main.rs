@@ -2,7 +2,7 @@ use std::thread::spawn;
 
 fn main() {
     static N: usize = 10000;
-    let r_val = std::rc::Rc::new(0);
+    let r_val = std::sync::Arc::new(0);
     let mut handlers: Vec<_> = Default::default();
 
     for _ in 0..N {
