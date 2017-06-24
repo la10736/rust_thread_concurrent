@@ -2,11 +2,11 @@ use std::thread::spawn;
 
 fn main() {
     static N: usize = 10000;
-    let mut val = 0;
-    let r_val = &mut val;
+    let r_val = std::rc::Rc::new(0);
     let mut handlers: Vec<_> = Default::default();
 
     for _ in 0..N {
+        let r_val = r_val.clone();
         handlers.push(spawn(move || {
             *r_val += 1;
         }
@@ -15,6 +15,6 @@ fn main() {
     for h in handlers {
         h.join().unwrap();
     }
-    print!("Sum = {}", val);
-    assert_eq!(N, val);
+    print!("Sum = {}", r_val);
+    assert_eq!(N, *r_val);
 }
