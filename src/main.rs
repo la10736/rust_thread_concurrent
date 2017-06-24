@@ -7,7 +7,7 @@ fn main() {
     let mut handlers: Vec<_> = Default::default();
 
     for _ in 0..N {
-        handlers.push(spawn(|| {
+        handlers.push(spawn(move || {
             *r_val += 1;
         }
         ));
